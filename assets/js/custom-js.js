@@ -1,5 +1,4 @@
 const sendBtn = document.querySelector('.search__wrapper > button')
-
 const renderData = (wordInfo) => {
     reset()
     const wrapper = document.querySelector('.dictionary__wrapper')
@@ -7,10 +6,11 @@ const renderData = (wordInfo) => {
     const word = wrapper.querySelector('.dictionary__header .dictionary__word .word__spell')
     const phonetic = wrapper.querySelector('.dictionary__header .dictionary__word .word__phonetics')
 
-    wordInfo.forEach(data => {
-        console.log(data)
-        word.textContent = data.word
-        phonetic.textContent = data.phonetics[1].text
+    wordInfo.forEach((data, i) => {
+        if (i === 0) {
+            word.textContent = data.word
+            phonetic.textContent = data.phonetic
+        }
 
         data.meanings.forEach(meaning => {
             const speechNode = speechTemplate.content.cloneNode(true)
@@ -61,12 +61,32 @@ const reset = () => {
     })
 }
 
+let handleSoundClick = null
+
+const handleSound = (sound) => {
+    const wordPronounce = document.querySelector('.dictionary__pronounce')
+
+    if(handleSoundClick){
+        wordPronounce.removeEventListener('click', handleSoundClick)
+    }
+
+     handleSoundClick = (e) => {
+        const raw = sound[0].phonetics[0].audio
+        const audio = new Audio(raw)
+        audio.play()
+    }
+    wordPronounce.addEventListener('click', handleSoundClick)
+}
+
 const fetchData = () => {
     let wordInput = document.querySelector('.search__wrapper > input').value
     if (wordInput === '') return;
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordInput}`)
         .then(response => response.json())
-        .then(data => renderData(data))
+        .then(data => {
+            renderData(data)
+            handleSound(data)
+        })
         .catch(error => {
             console.error(error)
         })
