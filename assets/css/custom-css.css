@@ -159,7 +159,7 @@ main {
     align-items: stretch;
 }
 
-.dictionary__wrapper .dictionary__header .dictionary__word{
+.dictionary__wrapper .dictionary__header .dictionary__word {
     width: 75%;
 }
 
@@ -168,7 +168,7 @@ main {
     font-weight: bolder;
 }
 
-.dictionary__wrapper .dictionary__header .dictionary__word .word__pronounce {
+.dictionary__wrapper .dictionary__header .dictionary__word .word__phonetics {
     padding: 1rem 0 0;
     font-size: 1.5rem;
     font-weight: 400;
@@ -176,63 +176,76 @@ main {
 }
 
 .dictionary__wrapper .dictionary__header .dictionary__pronounce {
-    width:25%;
+    width: 25%;
     background-image: url('../../images/icon-play.svg');
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.dictionary__wrapper .dictionary__definition{
+.dictionary__wrapper .dictionary__definition {
     margin: 2rem 0;
 }
 
-.dictionary__wrapper .dictionary__definition .word__type{
+.dictionary__wrapper .dictionary__definition .word__type {
     font-size: 1.25rem;
     font-weight: bold;
     font-style: oblique;
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning{
+.dictionary__wrapper .dictionary__definition .word__meaning {
     margin: 2rem 0;
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning .word__meaning-list .list__item{
+.dictionary__wrapper .dictionary__definition .word__meaning .word__meaning-list .list__item {
     position: relative;
     padding: 1rem 1.5rem;
     text-align: justify;
     list-style: none;
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning .word__meaning-list .list__item:before{
-    content:"\25CF"; /*escaped unicode coloured circle*/
-    color:var(--accent);
-    font-weight:bold;
-    text-align:right;
-    padding-right:6px;
+.dictionary__wrapper .dictionary__definition .word__meaning .word__meaning-list .list__item:before {
+    content: "\25CF";
+    /*escaped unicode coloured circle*/
+    color: var(--accent);
+    font-weight: bold;
+    text-align: right;
+    padding-right: 6px;
     position: absolute;
     left: 0;
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning  .word__semantics{
+.dictionary__wrapper .dictionary__definition .word__semantics {
     margin: 1rem 0;
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning  .word__semantics > div{
+.dictionary__wrapper .dictionary__definition .word__semantics>div {
+    display: flex;
+    justify-content: flex-start;
     padding: 0.5rem 0;
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning  .word__semantics > div > a{
+.dictionary__wrapper .dictionary__definition.word__semantics >div > span{
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.dictionary__wrapper .dictionary__definition .word__semantics>div > span >a {
+    padding: 0 0.25rem;
     font-weight: 600;
     text-decoration: none;
     color: var(--accent);
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning  .word__source > p{
+.dictionary__wrapper .dictionary__definition .word__source>p {
     padding: 0.5rem 0;
     color: var(--text-color);
 }
 
-.dictionary__wrapper .dictionary__definition .word__meaning  .word__source > a{
+.dictionary__wrapper .dictionary__definition .word__source>a {
     text-decoration: none;
     color: var(--text-color);
 }
