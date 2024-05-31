@@ -177,9 +177,24 @@ main {
 
 .dictionary__wrapper .dictionary__header .dictionary__pronounce {
     width: 25%;
-    background-image: url('../../images/icon-play.svg');
-    background-repeat: no-repeat;
-    background-position: center;
+}
+
+.dictionary__wrapper .dictionary__header .dictionary__pronounce>svg>g>circle {
+    cursor: pointer;
+    fill: var(--accent);
+}
+
+.dictionary__wrapper .dictionary__header .dictionary__pronounce>svg>g>path {
+    fill: var(--accent);
+}
+
+.dictionary__wrapper .dictionary__header .dictionary__pronounce>svg>g>circle:hover {
+    opacity: 1;
+    fill: var(--accent);
+}
+
+.dictionary__wrapper .dictionary__header .dictionary__pronounce>svg>g>circle:hover+path {
+    fill: var(--white);
 }
 
 .dictionary__wrapper .dictionary__definition {
@@ -224,8 +239,11 @@ main {
     padding: 0.5rem 0;
 }
 
-.dictionary__wrapper .dictionary__definition.word__semantics >div > span{
-    width: 60%;
+.dictionary__wrapper .dictionary__definition .word__semantics>div>p {
+    font-weight: 500;
+}
+
+.dictionary__wrapper .dictionary__definition .word__semantics>div>span {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -233,7 +251,7 @@ main {
 }
 
 
-.dictionary__wrapper .dictionary__definition .word__semantics>div > span >a {
+.dictionary__wrapper .dictionary__definition .word__semantics>div>span>a {
     padding: 0 0.25rem;
     font-weight: 600;
     text-decoration: none;
@@ -242,6 +260,7 @@ main {
 
 .dictionary__wrapper .dictionary__definition .word__source>p {
     padding: 0.5rem 0;
+    font-weight: 500;
     color: var(--text-color);
 }
 
@@ -301,4 +320,15 @@ footer {
 
 .footer__container .icon__container>ul>li>a>i {
     font-size: 1.5rem;
+}
+
+.daily__word {
+    width: 100%;
+    margin: 1.75rem 0;
+}
+
+.daily__word > p{
+    font-size: 1.75rem;
+    font-weight: bolder;
+    text-align: center;
 }

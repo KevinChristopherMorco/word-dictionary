@@ -36,17 +36,31 @@
             <input type="text" name="" id="" placeholder="Search for any word...">
             <button></button>
         </div>
-
+        <div class="daily__word">
+            <p>Word of the Day!</p>
+        </div>
         <div class="dictionary__wrapper">
-            <div class="dictionary__header">
-                <div class="dictionary__word">
-                    <p class="word__spell">keyboard</p>
-                    <p class="word__phonetics">/ˈkiːbɔːd/</p>
-                </div>
-                <div class="dictionary__pronounce"></div>
-            </div>
         </div>
     </main>
+
+    <template id="speech__header">
+        <div class="dictionary__header">
+            <div class="dictionary__word">
+                <p class="word__spell">keyboard</p>
+                <p class="word__phonetics">/ˈkiːbɔːd/</p>
+            </div>
+            <div class="dictionary__pronounce">
+                <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
+                    <g>
+                        <circle cx="37.5" cy="37.5" r="37.5" opacity=".25" />
+                        <path d="M29 27v21l21-10.5z" />
+                    </g>
+                </svg>
+
+            </div>
+        </div>
+
+    </template>
 
     <template id="speech__wrapper">
         <div class="dictionary__definition">
@@ -58,8 +72,12 @@
                 </ul>
             </div>
             <div class="word__semantics">
-                <div class="word__synonym"><p></p><span></span></div>
-                <div class="word__antonym"><p>Antonyms:</p><span></span></div>
+                <div class="word__synonym">
+                    <p></p><span></span>
+                </div>
+                <div class="word__antonym">
+                    <p></p><span></span>
+                </div>
             </div>
 
             <div class="word__source">
