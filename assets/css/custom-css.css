@@ -34,6 +34,11 @@ header {
     justify-content: space-between;
 }
 
+.main__wrapper{
+    margin: 0 auto;
+
+}
+
 .logo__section {
     width: 25%;
     background-image: url('../../images/logo.svg');
@@ -177,6 +182,9 @@ main {
 
 .dictionary__wrapper .dictionary__header .dictionary__pronounce {
     width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dictionary__wrapper .dictionary__header .dictionary__pronounce>svg>g>circle {
@@ -324,11 +332,38 @@ footer {
 
 .daily__word {
     width: 100%;
-    margin: 1.75rem 0;
+    margin: 2.5rem 0;
+    font-style: oblique;
 }
 
 .daily__word > p{
     font-size: 1.75rem;
     font-weight: bolder;
     text-align: center;
+}
+
+@media only screen and (min-width: 600px){
+    .main__wrapper{
+        width: 75%;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .main__wrapper{
+        width: 60%;
+    }
+
+    .theme__mode-wrapper .theme__mode {
+        width: 25%;
+    }
+}
+
+@media only screen and (min-width: 1600px){
+    .main__wrapper{
+        width: 40%;
+    }
+
+    .theme__mode-wrapper .theme__mode {
+        width: 25%;
+    }
 }

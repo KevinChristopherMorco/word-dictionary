@@ -7,86 +7,91 @@
     <title>Dictionary</title>
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png">
     <link rel="stylesheet" href="assets/css/custom-css.css">
+    <script src="https://kit.fontawesome.com/eacd88b6a6.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <header>
-        <div class="logo__section"></div>
-        <div class="theme__section">
-            <div class="theme__font-wrapper">
-                <div class="theme__font-dropdown">
-                    <p>Sans Serif</p>
-                    <div class="arrow"></div>
+    <div class="main__wrapper">
+        <header>
+            <div class="logo__section"></div>
+            <div class="theme__section">
+                <div class="theme__font-wrapper">
+                    <div class="theme__font-dropdown">
+                        <p>Sans Serif</p>
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+                <div class="theme__mode-wrapper">
+                    <div class="theme__mode">
+                        <div class="theme__toggle"></div>
+                    </div>
+                    <div class="theme__icon"></div>
+
                 </div>
             </div>
-            <div class="divider"></div>
+        </header>
 
-            <div class="theme__mode-wrapper">
-                <div class="theme__mode">
-                    <div class="theme__toggle"></div>
+        <main>
+            <div class="search__wrapper">
+                <input type="text" name="" id="" placeholder="Search for any word...">
+                <button></button>
+            </div>
+
+            <div class="dictionary__wrapper">
+            </div>
+        </main>
+
+        <template id="daily__word-template">
+            <div class="daily__word">
+                <p>Word of the Day! 🌞</p>
+            </div>
+        </template>
+
+        <template id="speech__header">
+            <div class="dictionary__header">
+                <div class="dictionary__word">
+                    <p class="word__spell">keyboard</p>
+                    <p class="word__phonetics">/ˈkiːbɔːd/</p>
                 </div>
-                <div class="theme__icon"></div>
+                <div class="dictionary__pronounce">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
+                        <g>
+                            <circle cx="37.5" cy="37.5" r="37.5" opacity=".25" />
+                            <path d="M29 27v21l21-10.5z" />
+                        </g>
+                    </svg>
 
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <div class="search__wrapper">
-            <input type="text" name="" id="" placeholder="Search for any word...">
-            <button></button>
-        </div>
-        <div class="daily__word">
-            <p>Word of the Day!</p>
-        </div>
-        <div class="dictionary__wrapper">
-        </div>
-    </main>
-
-    <template id="speech__header">
-        <div class="dictionary__header">
-            <div class="dictionary__word">
-                <p class="word__spell">keyboard</p>
-                <p class="word__phonetics">/ˈkiːbɔːd/</p>
-            </div>
-            <div class="dictionary__pronounce">
-                <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
-                    <g>
-                        <circle cx="37.5" cy="37.5" r="37.5" opacity=".25" />
-                        <path d="M29 27v21l21-10.5z" />
-                    </g>
-                </svg>
-
-            </div>
-        </div>
-
-    </template>
-
-    <template id="speech__wrapper">
-        <div class="dictionary__definition">
-            <div class="word__type"></div>
-            <div class="word__meaning">
-                <p class="sub-heading">Meaning</p>
-                <ul class="word__meaning-list">
-                    <!-- <li class="list__item"></li> -->
-                </ul>
-            </div>
-            <div class="word__semantics">
-                <div class="word__synonym">
-                    <p></p><span></span>
-                </div>
-                <div class="word__antonym">
-                    <p></p><span></span>
                 </div>
             </div>
+        </template>
 
-            <div class="word__source">
-                <p>Source:</p>
-                <a class="word__redirect" href=""></a>
+        <template id="speech__wrapper">
+            <div class="dictionary__definition">
+                <div class="word__type"></div>
+                <div class="word__meaning">
+                    <p class="sub-heading">Meaning</p>
+                    <ul class="word__meaning-list">
+                        <!-- <li class="list__item"></li> -->
+                    </ul>
+                </div>
+                <div class="word__semantics">
+                    <div class="word__synonym">
+                        <p></p><span></span>
+                    </div>
+                    <div class="word__antonym">
+                        <p></p><span></span>
+                    </div>
+                </div>
+
+                <div class="word__source">
+                    <p>Source:</p>
+                    <a class="word__redirect" href=""></a>
+                </div>
             </div>
-        </div>
-    </template>
-
+        </template>
+    </div>
     <footer>
         <div class="footer__container">
             <div class="footer__text-container">
@@ -107,7 +112,6 @@
             </div>
         </div>
     </footer>
-
     <script src="assets/js/custom-js.js"></script>
 
 </body>
