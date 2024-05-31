@@ -61,18 +61,27 @@ const reset = () => {
     })
 }
 
-let handleSoundClick = null
+let handleSoundClick
 
-const handleSound = (sound) => {
+const handleSound = (sounds) => {
     const wordPronounce = document.querySelector('.dictionary__pronounce')
 
-    if(handleSoundClick){
+    if (handleSoundClick) {
         wordPronounce.removeEventListener('click', handleSoundClick)
     }
 
-     handleSoundClick = (e) => {
-        const raw = sound[0].phonetics[0].audio
-        const audio = new Audio(raw)
+    handleSoundClick = (e) => {
+        let rawAudio
+        sounds.forEach(sound => {
+            sound.phonetics.forEach(phonetic => {
+                const phonetics = phonetic.audio
+                if (phonetics != '') {
+                    rawAudio = phonetics
+                }
+            })
+
+        })
+        const audio = new Audio(rawAudio)
         audio.play()
     }
     wordPronounce.addEventListener('click', handleSoundClick)
