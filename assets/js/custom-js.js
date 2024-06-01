@@ -178,26 +178,6 @@ const handleSound = (sounds) => {
 }
 
 
-const mode = document.querySelector('.theme__mode')
-const toggle = document.querySelector('.theme__toggle')
-const icon = document.querySelector('.theme__icon')
-
-const toggleClass = () => {
-    mode.classList.toggle('theme__mode--active')
-    toggle.classList.toggle('theme__toggle--active')
-}
-
-const handleSliderToggle = () => {
-    toggleClass()
-}
-mode.addEventListener('click', handleSliderToggle)
-
-const handleIconToggle = () => {
-    toggleClass()
-}
-icon.addEventListener('click', handleIconToggle)
-
-
 const drop = document.querySelector('.theme__font-dropdown > select')
 
 const handleChangeFont = (e, fonts) => {
@@ -213,24 +193,15 @@ const handleChangeFont = (e, fonts) => {
         case 'mono':
             setFont(fonts.inconsolata)
             break;
-
-
     }
 }
 const setFont = (fonts) => {
-
-    const value = fonts['--font-theme']
-    const fontValue = `"${value.split(',')[0]}",${value.split(',')[1]}`
+    const fontValue = `"${fonts['--font-theme'].split(',')[0]}",${fonts['--font-theme'].split(',')[1]}`
     console.log(fontValue)
 
-    Object.entries(fonts).forEach(x => {
-        document.documentElement.style.setProperty(x[0],fontValue)
+    Object.entries(fonts).forEach(font => {
+        document.documentElement.style.setProperty(font[0], fontValue)
     })
-
-    // fonts.forEach(font => {
-    // console.log(font)
-    // document.documentElement.style.setProperty(font[0],fontValue)
-    // })
 }
 const fetchFont = (e) => {
     fetch('../json/fonts.json').then(response => response.json()).then(fonts => handleChangeFont(e, fonts)).catch(error => {
@@ -239,5 +210,55 @@ const fetchFont = (e) => {
 }
 
 drop.addEventListener('change', (e) => fetchFont(e))
+
+
+
+const mode = document.querySelector('.theme__mode')
+const toggle = document.querySelector('.theme__toggle')
+const icon = document.querySelector('.theme__icon')
+
+
+const fetchTheme = (e) => {
+    fetch('../json/theme.json').then(response => response.json()).then(themes => {
+        handleSliderToggle(e, themes)
+        // handleIconToggle(e, themes)
+    }).catch(error => {
+        console.error(error)
+    })
+}
+
+const toggleClass = () => {
+    mode.classList.toggle('theme__mode--active')
+    toggle.classList.toggle('theme__toggle--active')
+}
+
+const setTheme = (themes) => {
+    console.log(themes)
+    Object.entries(themes).forEach(theme => {
+        document.documentElement.style.setProperty(theme[0], theme[1])
+    })
+}
+
+
+const handleSliderToggle = (e, themes) => {
+    if(mode.classList.contains('theme__mode--active')){
+        setTheme(themes.lightTheme)
+    }else{
+        setTheme(themes.darkTheme)
+    }
+
+    console.log(e)
+    console.log(themes)
+    toggleClass()
+}
+
+mode.addEventListener('click', (e) => fetchTheme(e))
+
+const handleIconToggle = (e) => {
+    // toggleClass()
+}
+icon.addEventListener('click', (e) => fetchTheme(e))
+
+
 
 

@@ -2,14 +2,17 @@
 :root {
     /* Default */
     --font-theme: "Inter", sans-serif;
-    --primary-color: hsl(0, 0%, 100%);
+    --background-color: hsl(0, 0%, 100%);
+    --search-bg: hsl(0, 0%, 96%);
+    --text-color: hsl(0, 0%, 2%);
+
+
     --toggle: hsl(0, 0%, 46%);
     --accent: hsl(274, 82%, 60%);
     --light-accent: hsl(273, 84%, 90%);
-    --text-color: hsl(0, 0%, 2%);
     --gray: hsl(0, 0%, 96%);
     --white: hsl(0, 0%, 100%);
-    --footer: hsl(238, 40%, 48%);
+    --footer: hsl(274, 82%, 60%);
 }
 
 * {
@@ -25,6 +28,7 @@ html {
 
 body {
     min-height: 100%;
+    background-color: var(--background-color);
 }
 
 header {
@@ -36,7 +40,7 @@ header {
 
 .main__wrapper {
     margin: 0 auto;
-
+    background-color: var(--background-color);
 }
 
 .logo__section {
@@ -62,17 +66,13 @@ header {
     cursor: pointer;
 }
 
-/* .theme__font-wrapper .theme__font-dropdown {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-} */
 
 .theme__font-wrapper .theme__font-dropdown > select {
     padding: 1rem;
     outline: none;
     border: none;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(1) {
@@ -168,7 +168,8 @@ main {
     outline: none;
     border: none;
     border-radius: 1rem;
-    background-color: var(--gray);
+    background-color: var(--search-bg);
+    color: var(--text-color);
 }
 
 
@@ -189,6 +190,7 @@ main {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    background-color: var(--search-bg);
     cursor: pointer;
 }
 
@@ -210,6 +212,7 @@ main {
 .dictionary__wrapper .dictionary__header .dictionary__word .word__spell {
     font-size: 2rem;
     font-weight: bolder;
+    color: var(--text-color);
 }
 
 .dictionary__wrapper .dictionary__header .dictionary__word .word__phonetics {
@@ -252,16 +255,17 @@ main {
     font-size: 1.25rem;
     font-weight: bold;
     font-style: oblique;
+    color: var(--text-color);
 }
 
 .dictionary__wrapper .dictionary__definition .word__meaning {
     margin: 2rem 0;
+    color: var(--text-color);
 }
 
 .dictionary__wrapper .dictionary__definition .word__meaning .word__meaning-list .list__item {
     position: relative;
     padding: 1rem 1.5rem;
-    text-align: justify;
     list-style: none;
 }
 
@@ -288,6 +292,7 @@ main {
 
 .dictionary__wrapper .dictionary__definition .word__semantics>div>p {
     font-weight: 500;
+    color: var(--text-color);
 }
 
 .dictionary__wrapper .dictionary__definition .word__semantics>div>span {
@@ -378,6 +383,7 @@ footer {
 .daily__word>p {
     font-size: 1.75rem;
     font-weight: bolder;
+    color: var(--text-color);
     text-align: center;
 }
 

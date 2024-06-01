@@ -1,0 +1,13 @@
+{
+    "lightTheme": {
+        "--background-color": "hsl(0, 0%, 100%)",
+        "--search-bg": "hsl(0, 0%, 96%)",
+        "--text-color": "hsl(0, 0%, 2%)"
+    },
+
+    "darkTheme": {
+        "--background-color": "hsl(0, 0%, 2%)",
+        "--search-bg": "hsl(0, 0%, 12%)",
+        "--text-color": "hsl(0, 0%, 100%)"
+    }
+}
