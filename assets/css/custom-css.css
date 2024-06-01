@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=League+Spartan:wght@100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Inter:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 :root {
+    /* Default */
     --font-theme: "Inter", sans-serif;
     --primary-color: hsl(0, 0%, 100%);
     --toggle: hsl(0, 0%, 46%);
@@ -34,7 +34,7 @@ header {
     justify-content: space-between;
 }
 
-.main__wrapper{
+.main__wrapper {
     margin: 0 auto;
 
 }
@@ -59,13 +59,32 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
 }
 
-.theme__font-wrapper .theme__font-dropdown {
+/* .theme__font-wrapper .theme__font-dropdown {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+} */
+
+.theme__font-wrapper .theme__font-dropdown > select {
+    padding: 1rem;
+    outline: none;
+    border: none;
+}
+
+.theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(1) {
+    font-family: "Inter", sans-serif;
+}
+
+.theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(2) {
+    font-family: "Lora", serif;
+}
+
+.theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(3) {
+    font-family: "Inconsolata", monospace;
 }
 
 .theme__font-dropdown .arrow {
@@ -90,20 +109,38 @@ header {
 }
 
 .theme__mode-wrapper .theme__mode {
-    width: 40%;
-    height: 25%;
+    width: 50px;
+    height: 25px;
     padding: 0.25rem;
     display: flex;
     align-items: center;
+    position: relative;
     border-radius: 1rem;
     background-color: var(--toggle);
+    cursor: pointer;
+    transition: 0.2s background-color ease-in-out;
 }
+
+.theme__mode-wrapper .theme__mode--active {
+    background-color: var(--accent);
+}
+
 
 .theme__mode .theme__toggle {
     width: 15px;
     height: 15px;
+    position: absolute;
+    left: 10%;
+    transform: translate(-10%);
     border-radius: 100%;
     background-color: var(--white);
+    transition: 0.3s left ease-in-out;
+}
+
+.theme__mode .theme__toggle--active {
+    position: absolute;
+    left: 90%;
+    transform: translate(-90%);
 }
 
 .theme__mode-wrapper .theme__icon {
@@ -113,6 +150,7 @@ header {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    cursor: pointer;
 }
 
 main {
@@ -151,6 +189,7 @@ main {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
+    cursor: pointer;
 }
 
 .dictionary__wrapper {
@@ -336,20 +375,28 @@ footer {
     font-style: oblique;
 }
 
-.daily__word > p{
+.daily__word>p {
     font-size: 1.75rem;
     font-weight: bolder;
     text-align: center;
 }
 
-@media only screen and (min-width: 600px){
-    .main__wrapper{
+@media only screen and (min-width: 600px) {
+    .main__wrapper {
         width: 75%;
     }
+
+    .search__wrapper>button {
+        width: 10%;
+        top: 50%;
+        left: 99%;
+        transform: translate(-99%, -50%);
+    }
+
 }
 
-@media only screen and (min-width: 1200px){
-    .main__wrapper{
+@media only screen and (min-width: 1200px) {
+    .main__wrapper {
         width: 60%;
     }
 
@@ -358,8 +405,8 @@ footer {
     }
 }
 
-@media only screen and (min-width: 1600px){
-    .main__wrapper{
+@media only screen and (min-width: 1600px) {
+    .main__wrapper {
         width: 40%;
     }
 

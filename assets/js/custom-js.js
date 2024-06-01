@@ -54,21 +54,21 @@ const renderAntonyms = (antonyms, speechNode) => {
     speechNode.querySelector('.dictionary__definition .word__semantics .word__antonym > p').textContent = 'antonyms:'
 }
 
-const partOfSpeech = (meaning,speechNode) => {
+const partOfSpeech = (meaning, speechNode) => {
     speechNode.querySelector('.word__type').textContent = meaning.partOfSpeech
 }
 
-const wordSources = (data,speechNode) => {
+const wordSources = (data, speechNode) => {
     speechNode.querySelector('.word__redirect').textContent = data.sourceUrls
 }
 
-const renderMeaning = (data,meaning) => {
+const renderMeaning = (data, meaning) => {
     const speechNode = speechTemplate.content.cloneNode(true)
     renderDefinitions(meaning, speechNode)
     renderSynonyms(meaning.synonyms, speechNode)
     renderAntonyms(meaning.antonyms, speechNode)
-    partOfSpeech(meaning,speechNode)
-    wordSources(data,speechNode)
+    partOfSpeech(meaning, speechNode)
+    wordSources(data, speechNode)
 
     wrapper.appendChild(speechNode)
 }
@@ -77,7 +77,7 @@ const renderData = (wordInfo) => {
     reset()
     wordInfo.forEach((data, i) => {
         renderHeader(data, i)
-        data.meanings.forEach(meaning => renderMeaning(data,meaning))
+        data.meanings.forEach(meaning => renderMeaning(data, meaning))
     });
 }
 
@@ -97,7 +97,7 @@ const reset = () => {
 const fetchData = () => {
     let wordInput = document.querySelector('.search__wrapper > input').value
     const dailyWord = wrapper.querySelector('.daily__word')
-    if(dailyWord){
+    if (dailyWord) {
         dailyWord.remove()
     }
     if (wordInput === '') return;
@@ -177,5 +177,67 @@ const handleSound = (sounds) => {
     wordPronounce.addEventListener('click', handleSoundClick)
 }
 
+
+const mode = document.querySelector('.theme__mode')
+const toggle = document.querySelector('.theme__toggle')
+const icon = document.querySelector('.theme__icon')
+
+const toggleClass = () => {
+    mode.classList.toggle('theme__mode--active')
+    toggle.classList.toggle('theme__toggle--active')
+}
+
+const handleSliderToggle = () => {
+    toggleClass()
+}
+mode.addEventListener('click', handleSliderToggle)
+
+const handleIconToggle = () => {
+    toggleClass()
+}
+icon.addEventListener('click', handleIconToggle)
+
+
+const drop = document.querySelector('.theme__font-dropdown > select')
+
+const handleChangeFont = (e, fonts) => {
+    switch (e.target.value) {
+        case 'sans-serif':
+            setFont(fonts.inter)
+            break;
+
+        case 'serif':
+            setFont(fonts.lora)
+            break;
+
+        case 'mono':
+            setFont(fonts.inconsolata)
+            break;
+
+
+    }
+}
+const setFont = (fonts) => {
+
+    const value = fonts['--font-theme']
+    const fontValue = `"${value.split(',')[0]}",${value.split(',')[1]}`
+    console.log(fontValue)
+
+    Object.entries(fonts).forEach(x => {
+        document.documentElement.style.setProperty(x[0],fontValue)
+    })
+
+    // fonts.forEach(font => {
+    // console.log(font)
+    // document.documentElement.style.setProperty(font[0],fontValue)
+    // })
+}
+const fetchFont = (e) => {
+    fetch('../json/fonts.json').then(response => response.json()).then(fonts => handleChangeFont(e, fonts)).catch(error => {
+        console.error(error)
+    })
+}
+
+drop.addEventListener('change', (e) => fetchFont(e))
 
 

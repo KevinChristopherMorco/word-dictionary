@@ -1,0 +1,11 @@
+{
+    "inter": {
+        "--font-theme": "Inter, sans-serif"
+    },
+    "lora": {
+        "--font-theme": "Lora, sans-serif"
+    },
+    "inconsolata": {
+        "--font-theme": "Inconsolata, monospace"
+    }
+}
