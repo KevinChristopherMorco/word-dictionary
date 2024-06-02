@@ -266,8 +266,11 @@ const handleStorage = (e,items) => {
     const checkToggle = localStorage.getItem('isToggled')
     const checkFontValue = localStorage.getItem('fontValue')
 
-    const dropdown = document.querySelector('.theme__font-dropdown > select')
-    dropdown.value = checkFontValue
+    if(checkFontValue != null){
+        const dropdown = document.querySelector('.theme__font-dropdown > select')
+        dropdown.value = checkFontValue
+    }
+
 
     if (JSON.parse(checkToggle) === true) {
         toggleClass()
