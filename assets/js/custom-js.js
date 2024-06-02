@@ -184,20 +184,22 @@ const handleChangeFont = (e, fonts) => {
     switch (e.target.value) {
         case 'sans-serif':
             setFont(fonts.inter)
+            localStorage.setItem('font', JSON.stringify(fonts.inter))
             break;
 
         case 'serif':
             setFont(fonts.lora)
+            localStorage.setItem('font', JSON.stringify(fonts.lora))
             break;
 
         case 'mono':
             setFont(fonts.inconsolata)
+            localStorage.setItem('font', JSON.stringify(fonts.inconsolata))
             break;
     }
 }
 const setFont = (fonts) => {
     const fontValue = `"${fonts['--font-theme'].split(',')[0]}",${fonts['--font-theme'].split(',')[1]}`
-    console.log(fontValue)
 
     Object.entries(fonts).forEach(font => {
         document.documentElement.style.setProperty(font[0], fontValue)
@@ -221,7 +223,6 @@ const icon = document.querySelector('.theme__icon')
 const fetchTheme = (e) => {
     fetch('../json/theme.json').then(response => response.json()).then(themes => {
         handleSliderToggle(e, themes)
-        // handleIconToggle(e, themes)
     }).catch(error => {
         console.error(error)
     })
@@ -233,7 +234,6 @@ const toggleClass = () => {
 }
 
 const setTheme = (themes) => {
-    console.log(themes)
     Object.entries(themes).forEach(theme => {
         document.documentElement.style.setProperty(theme[0], theme[1])
     })
@@ -241,24 +241,43 @@ const setTheme = (themes) => {
 
 
 const handleSliderToggle = (e, themes) => {
-    if(mode.classList.contains('theme__mode--active')){
+    if (mode.classList.contains('theme__mode--active')) {
         setTheme(themes.lightTheme)
-    }else{
+        setStorageItem('theme', themes.lightTheme)
+        setStorageItem('isToggled', false)
+    } else {
         setTheme(themes.darkTheme)
+        setStorageItem('theme', themes.darkTheme)
+        setStorageItem('isToggled', true)
     }
-
-    console.log(e)
-    console.log(themes)
+    
     toggleClass()
 }
 
 mode.addEventListener('click', (e) => fetchTheme(e))
-
-const handleIconToggle = (e) => {
-    // toggleClass()
-}
 icon.addEventListener('click', (e) => fetchTheme(e))
 
+const setStorageItem = (name, data) => {
+    localStorage.setItem(name, JSON.stringify(data))
+}
 
+const handleStorage = (e,items) => {
+    const checkToggle = localStorage.getItem('isToggled')
+
+    items.forEach(item => {
+        const storage = localStorage.getItem(item)
+        if(storage === null) return;
+        if (JSON.parse(checkToggle) === true) {
+            toggleClass()
+        }
+
+        Object.entries(JSON.parse(storage)).forEach(property => {
+            document.documentElement.style.setProperty(property[0], property[1])
+        })
+    })
+
+}
+
+window.addEventListener('load', (e) => handleStorage(e, ['theme', 'font']))
 
 
