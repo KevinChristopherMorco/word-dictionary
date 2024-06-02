@@ -94,24 +94,41 @@ const reset = () => {
     })
 }
 
-const fetchData = () => {
+const fetchAPI = (word, functions) => {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        .then(response => response.json())
+        .then(data => functions.forEach(func => {
+            func(data)
+        }))
+        .catch(error => {
+            console.error(error)
+        })
+}
+
+const fetchJSON = (e, json, functions) => {
+    fetch(json)
+        .then(response => response.json())
+        .then(data => functions.forEach(func => {
+            func(e, data)
+        }))
+        .catch(error => {
+            console.error(error)
+        })
+}
+
+
+const handleWordSearch = () => {
     let wordInput = document.querySelector('.search__wrapper > input').value
     const dailyWord = wrapper.querySelector('.daily__word')
     if (dailyWord) {
         dailyWord.remove()
     }
     if (wordInput === '') return;
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordInput}`)
-        .then(response => response.json())
-        .then(data => {
-            renderData(data)
-            handleSound(data)
-        })
-        .catch(error => {
-            console.error(error)
-        })
+   
+    fetchAPI(wordInput, [renderData, handleSound])
 }
-sendBtn.addEventListener('click', fetchData)
+
+sendBtn.addEventListener('click', handleWordSearch)
 
 const fetchDailyWord = () => {
     const wordsOfTheDay = [
@@ -131,16 +148,7 @@ const fetchDailyWord = () => {
     const index = date.getDate() % wordsOfTheDay.length
     const word = wordsOfTheDay[index];
 
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-        .then(response => response.json())
-        .then(data => {
-            wordOfTheDay(data)
-            handleSound(data)
-        })
-        .catch(error => {
-            console.error(error)
-        })
-
+    fetchAPI(word, [wordOfTheDay, handleSound])
 }
 
 const wordOfTheDay = (wordInfo) => {
@@ -150,7 +158,6 @@ const wordOfTheDay = (wordInfo) => {
 }
 
 window.addEventListener('load', fetchDailyWord)
-
 
 let handleSoundClick
 const handleSound = (sounds) => {
@@ -177,7 +184,6 @@ const handleSound = (sounds) => {
     wordPronounce.addEventListener('click', handleSoundClick)
 }
 
-
 const drop = document.querySelector('.theme__font-dropdown > select')
 
 const handleChangeFont = (e, fonts) => {
@@ -185,16 +191,19 @@ const handleChangeFont = (e, fonts) => {
         case 'sans-serif':
             setFont(fonts.inter)
             localStorage.setItem('font', JSON.stringify(fonts.inter))
+            localStorage.setItem('fontValue', 'sans-serif')
             break;
 
         case 'serif':
             setFont(fonts.lora)
             localStorage.setItem('font', JSON.stringify(fonts.lora))
+            localStorage.setItem('fontValue', 'serif')
             break;
 
         case 'mono':
             setFont(fonts.inconsolata)
             localStorage.setItem('font', JSON.stringify(fonts.inconsolata))
+            localStorage.setItem('fontValue', 'mono')
             break;
     }
 }
@@ -206,14 +215,10 @@ const setFont = (fonts) => {
     })
 }
 const fetchFont = (e) => {
-    fetch('../json/fonts.json').then(response => response.json()).then(fonts => handleChangeFont(e, fonts)).catch(error => {
-        console.error(error)
-    })
+    fetchJSON(e, '../json/fonts.json', [handleChangeFont])
 }
 
 drop.addEventListener('change', (e) => fetchFont(e))
-
-
 
 const mode = document.querySelector('.theme__mode')
 const toggle = document.querySelector('.theme__toggle')
@@ -221,11 +226,7 @@ const icon = document.querySelector('.theme__icon')
 
 
 const fetchTheme = (e) => {
-    fetch('../json/theme.json').then(response => response.json()).then(themes => {
-        handleSliderToggle(e, themes)
-    }).catch(error => {
-        console.error(error)
-    })
+    fetchJSON(e, '../json/theme.json' , [handleSliderToggle])
 }
 
 const toggleClass = () => {
@@ -250,7 +251,7 @@ const handleSliderToggle = (e, themes) => {
         setStorageItem('theme', themes.darkTheme)
         setStorageItem('isToggled', true)
     }
-    
+
     toggleClass()
 }
 
@@ -263,14 +264,19 @@ const setStorageItem = (name, data) => {
 
 const handleStorage = (e,items) => {
     const checkToggle = localStorage.getItem('isToggled')
+    const checkFontValue = localStorage.getItem('fontValue')
+
+    const dropdown = document.querySelector('.theme__font-dropdown > select')
+    dropdown.value = checkFontValue
+
+    if (JSON.parse(checkToggle) === true) {
+        toggleClass()
+    }
 
     items.forEach(item => {
         const storage = localStorage.getItem(item)
         if(storage === null) return;
-        if (JSON.parse(checkToggle) === true) {
-            toggleClass()
-        }
-
+    
         Object.entries(JSON.parse(storage)).forEach(property => {
             document.documentElement.style.setProperty(property[0], property[1])
         })
