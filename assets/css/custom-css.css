@@ -53,22 +53,19 @@ header {
 
 .theme__section {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
     width: 65%;
 }
 
 .theme__font-wrapper {
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    width: 40%;
     cursor: pointer;
 }
 
 
 .theme__font-wrapper .theme__font-dropdown > select {
-    padding: 1rem;
+    padding: 1rem 0;
     outline: none;
     border: none;
     background-color: var(--background-color);
@@ -308,6 +305,7 @@ main {
     font-weight: 600;
     text-decoration: none;
     color: var(--accent);
+    cursor: pointer;
 }
 
 .dictionary__wrapper .dictionary__definition .word__source>p {
@@ -317,7 +315,12 @@ main {
 }
 
 .dictionary__wrapper .dictionary__definition .word__source>a {
+    font-weight: 300;
     text-decoration: none;
+    word-wrap: break-word;
+    color: var(--text-color);
+}
+.error__message{
     color: var(--text-color);
 }
 
@@ -399,6 +402,10 @@ footer {
         transform: translate(-99%, -50%);
     }
 
+    .theme__section {
+        width: 40%;
+    }
+
 }
 
 @media only screen and (min-width: 1200px) {
@@ -406,8 +413,12 @@ footer {
         width: 60%;
     }
 
+    .theme__section {
+        width: 30%;
+    }
+
     .theme__mode-wrapper .theme__mode {
-        width: 25%;
+        width: 50%;
     }
 }
 
@@ -416,7 +427,11 @@ footer {
         width: 40%;
     }
 
+    .theme__section {
+        width: 35%;
+    }
+
     .theme__mode-wrapper .theme__mode {
-        width: 25%;
+        width: 50%;
     }
 }
