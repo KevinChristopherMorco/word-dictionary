@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Inter:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
 :root {
     /* Default */
     --font-theme: "Inter", sans-serif;
@@ -66,7 +67,7 @@ header {
 }
 
 
-.theme__font-wrapper .theme__font-dropdown > select {
+.theme__font-wrapper .theme__font-dropdown>select {
     padding: 1rem 0;
     outline: none;
     border: none;
@@ -74,15 +75,15 @@ header {
     color: var(--text-color);
 }
 
-.theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(1) {
+.theme__font-wrapper .theme__font-dropdown>select>option:nth-of-type(1) {
     font-family: "Inter", sans-serif;
 }
 
-.theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(2) {
+.theme__font-wrapper .theme__font-dropdown>select>option:nth-of-type(2) {
     font-family: "Lora", serif;
 }
 
-.theme__font-wrapper .theme__font-dropdown > select > option:nth-of-type(3) {
+.theme__font-wrapper .theme__font-dropdown>select>option:nth-of-type(3) {
     font-family: "Inconsolata", monospace;
 }
 
@@ -321,22 +322,22 @@ main {
     color: var(--text-color);
 }
 
-.error__message{
+.error__message {
     padding: 0.5rem;
     text-align: center;
     color: var(--text-color);
 }
 
-.error__icon{
+.error__icon {
     text-align: center;
     font-size: 3rem;
 }
 
-.error__message:nth-of-type(1){
+.error__message:nth-of-type(1) {
     font-size: 1.75rem;
 }
 
-.error__message:nth-of-type(2){
+.error__message:nth-of-type(2) {
     font-size: 1.25rem;
 }
 
@@ -407,6 +408,11 @@ footer {
 }
 
 @media only screen and (min-width: 600px) {
+    header{
+        padding: 1.5rem;
+        justify-content: space-between;
+    }
+
     .main__wrapper {
         width: 75%;
     }
@@ -425,6 +431,10 @@ footer {
 }
 
 @media only screen and (min-width: 1200px) {
+    header {
+        justify-content: space-between;
+    }
+
     .main__wrapper {
         width: 60%;
     }
