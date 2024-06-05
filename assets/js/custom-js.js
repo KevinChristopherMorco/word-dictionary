@@ -35,7 +35,7 @@ const renderSynonyms = (synonyms, speechNode) => {
         const listItem = document.createElement('a')
         listItem.textContent = synonym
         listItem.setAttribute('href', `#${listItem.textContent}`)
-        listItem.addEventListener('click', (e) => setURL(e))
+        listItem.addEventListener('click', (e) => fetchAPI(e.target.textContent, [renderData, handleSound]))
         mainList.appendChild(listItem)
     })
     speechNode.querySelector('.dictionary__definition .word__semantics .word__synonym > p').textContent = 'Synonyms:'
@@ -52,7 +52,7 @@ const renderAntonyms = (antonyms, speechNode) => {
         const listItem = document.createElement('a')
         listItem.textContent = antonym
         listItem.setAttribute('href', `#${listItem.textContent}`)
-        listItem.addEventListener('click', (e) => setURL(e))
+        listItem.addEventListener('click', (e) => fetchAPI(e.target.textContent, [renderData, handleSound]))
         mainList.appendChild(listItem)
     })
     speechNode.querySelector('.dictionary__definition .word__semantics .word__antonym > p').textContent = 'antonyms:'
@@ -88,8 +88,8 @@ const renderData = (wordInfo) => {
 }
 
 const reset = () => {
-    const definitions = document.querySelectorAll('.dictionary__definition')
-    const headers = document.querySelectorAll('.dictionary__header')
+    const definitions = wrapper.querySelectorAll('.dictionary__definition')
+    const headers = wrapper.querySelectorAll('.dictionary__header')
 
     definitions.forEach(definition => {
         definition.remove()
@@ -100,23 +100,22 @@ const reset = () => {
     })
 }
 
-const fetchAPI = (word, functions) => {
+const fetchAPI = async (word, functions) => {
     const errorTemplate = document.querySelector('#error')
     const errorNode = errorTemplate.content.cloneNode(true)
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+    wrapper.querySelector('.daily__word')?.remove()
+    await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
         .then(response => {
             if (response.status === 404) {
-                const main = document.querySelector('main')
-                const meaning = document.querySelectorAll('.dictionary__definition')
-                meaning.forEach(x=> {
+                [...wrapper.children].forEach(x=> {
                     x.remove()
                 })
-                console.log(meaning)
-                // wrapper.remove()
-                // main.appendChild(errorNode)
+                wrapper.appendChild(errorNode)
                 throw new Error('Word is not available in our system')
                 return;
-            } 
+            }
+
+            wrapper.querySelector('.error__container')?.remove();
             return response.json()
         })
         .then(data => {
@@ -142,16 +141,18 @@ const fetchJSON = (e, json, functions) => {
         })
 }
 
-
-const handleWordSearch = () => {
+const handleWordSearch = async () => {
     let wordInput = document.querySelector('.search__wrapper > input').value
     const dailyWord = wrapper.querySelector('.daily__word')
     if (dailyWord) {
         dailyWord.remove()
     }
+
     if (wordInput === '') return;
 
-    fetchAPI(wordInput, [renderData, handleSound])
+    setURL(wordInput)
+    const loader = document.querySelector('.loader')
+    await fetchAPI(wordInput, [renderData, handleSound])
 }
 
 sendBtn.addEventListener('click', handleWordSearch)
@@ -187,7 +188,7 @@ window.addEventListener('load', fetchDailyWord)
 
 let handleSoundClick
 const handleSound = (sounds) => {
-    const wordPronounce = document.querySelector('.dictionary__pronounce')
+    const wordPronounce = wrapper.querySelector('.dictionary__pronounce')
 
     if (handleSoundClick) {
         wordPronounce.removeEventListener('click', handleSoundClick)
@@ -202,7 +203,6 @@ const handleSound = (sounds) => {
                     rawAudio = phonetics
                 }
             })
-
         })
         const audio = new Audio(rawAudio)
         audio.play()
@@ -235,7 +235,6 @@ const handleChangeFont = (e, fonts) => {
 }
 const setFont = (fonts) => {
     const fontValue = `"${fonts['--font-theme'].split(',')[0]}",${fonts['--font-theme'].split(',')[1]}`
-
     Object.entries(fonts).forEach(font => {
         document.documentElement.style.setProperty(font[0], fontValue)
     })
@@ -266,7 +265,6 @@ const setTheme = (themes) => {
     })
 }
 
-
 const handleSliderToggle = (e, themes) => {
     if (mode.classList.contains('theme__mode--active')) {
         setTheme(themes.lightTheme)
@@ -277,7 +275,6 @@ const handleSliderToggle = (e, themes) => {
         setStorageItem('theme', themes.darkTheme)
         setStorageItem('isToggled', true)
     }
-
     toggleClass()
 }
 
@@ -315,8 +312,19 @@ const handleStorage = (e, items) => {
 
 window.addEventListener('load', (e) => handleStorage(e, ['theme', 'font']))
 
-const setURL = (e) => {
-    fetchAPI(e.target.textContent, [renderData, handleSound])
+const setURL = (word) => {
+    let url = window.location.href
+    if (url.indexOf('#') === -1) {
+        url = url.concat(`#${word}`)
+        window.location.href = url
+        return;
+    }
+
+    const index = url.indexOf('#')
+    url = url.slice(0, index).concat(`#${word}`)
+    window.location.href = url
+
+
 }
 
 const loadURL = (e) => {
@@ -330,6 +338,14 @@ const loadURL = (e) => {
 }
 
 window.addEventListener('load', (e) => loadURL(e))
+
+const logo = document.querySelector('.logo__section')
+
+const handleLogoClick = () => {
+    window.location.href = '/'
+}
+
+logo.addEventListener('click', handleLogoClick)
 
 
 
