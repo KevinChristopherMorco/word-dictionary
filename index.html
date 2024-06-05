@@ -25,8 +25,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="divider"></div>
-
                 <div class="theme__mode-wrapper">
                     <div class="theme__mode">
                         <div class="theme__toggle"></div>
@@ -91,8 +89,60 @@
 
                 <div class="word__source">
                     <p>Source:</p>
-                    <a class="word__redirect" href=""></a>
+                    <a class="word__redirect"></a>
                 </div>
+            </div>
+        </template>
+
+        <template id="dictionary__body">
+            <div class="dictionary__header">
+                <div class="dictionary__word">
+                    <p class="word__spell">friend</p>
+                    <p class="word__phonetics">/fɹɛnd/</p>
+                </div>
+                <div class="dictionary__pronounce">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
+                        <g>
+                            <circle cx="37.5" cy="37.5" r="37.5" opacity=".25"></circle>
+                            <path d="M29 27v21l21-10.5z"></path>
+                        </g>
+                    </svg>
+
+                </div>
+            </div>
+
+            <div class="dictionary__definition">
+                <div class="word__type">noun</div>
+                <div class="word__meaning">
+                    <p class="sub-heading">Meaning</p>
+                    <ul class="word__meaning-list">
+                        <!-- <li class="list__item"></li> -->
+                        <li class="list__item">A person other than a family member, spouse or lover whose company one
+                            enjoys and towards whom one feels affection.</li>
+                    </ul>
+                </div>
+                <div class="word__semantics">
+                    <div class="word__synonym">
+
+                    </div>
+                    <div class="word__antonym">
+
+                    </div>
+                </div>
+
+                <div class="word__source">
+                    <p>Source:</p>
+                    <a class="word__redirect" href="https://en.wiktionary.org/wiki/friend"
+                        target="__blank">https://en.wiktionary.org/wiki/friend</a>
+                </div>
+            </div>
+        </template>
+
+        <template id="error">
+            <div class="error__container">
+                <div class="error__icon">😕</div>
+                <p class="error__message">No Definitions Found</p>
+                <p class="error__message">Sorry pal, we couldn't find definitions for the word you were looking for.</p>
             </div>
         </template>
     </div>

@@ -35,20 +35,22 @@ header {
     height: 10vh;
     margin: 1rem 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .main__wrapper {
+    min-height: 100vh;
     margin: 0 auto;
     background-color: var(--background-color);
 }
 
 .logo__section {
-    width: 25%;
+    width: 10%;
     background-image: url('../../images/logo.svg');
     background-repeat: no-repeat;
     background-size: 40px;
     background-position: center;
+    cursor: pointer;
 }
 
 .theme__section {
@@ -101,7 +103,7 @@ header {
 .theme__mode-wrapper {
     width: 40%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -141,11 +143,10 @@ header {
 }
 
 .theme__mode-wrapper .theme__icon {
-    width: 50px;
+    width: 30px;
     height: 20px;
     background-image: url('../../images/icon-moon.svg');
     background-repeat: no-repeat;
-    background-size: 100% 100%;
     background-position: center;
     cursor: pointer;
 }
@@ -220,7 +221,6 @@ main {
 }
 
 .dictionary__wrapper .dictionary__header .dictionary__pronounce {
-    width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -320,8 +320,24 @@ main {
     word-wrap: break-word;
     color: var(--text-color);
 }
+
 .error__message{
+    padding: 0.5rem;
+    text-align: center;
     color: var(--text-color);
+}
+
+.error__icon{
+    text-align: center;
+    font-size: 3rem;
+}
+
+.error__message:nth-of-type(1){
+    font-size: 1.75rem;
+}
+
+.error__message:nth-of-type(2){
+    font-size: 1.25rem;
 }
 
 footer {
