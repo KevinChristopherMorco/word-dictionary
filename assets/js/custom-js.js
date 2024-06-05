@@ -34,6 +34,8 @@ const renderSynonyms = (synonyms, speechNode) => {
     synonyms.forEach(synonym => {
         const listItem = document.createElement('a')
         listItem.textContent = synonym
+        listItem.setAttribute('href', `#${listItem.textContent}`)
+        listItem.addEventListener('click', (e) => setURL(e))
         mainList.appendChild(listItem)
     })
     speechNode.querySelector('.dictionary__definition .word__semantics .word__synonym > p').textContent = 'Synonyms:'
@@ -49,6 +51,8 @@ const renderAntonyms = (antonyms, speechNode) => {
     antonyms.forEach(antonym => {
         const listItem = document.createElement('a')
         listItem.textContent = antonym
+        listItem.setAttribute('href', `#${listItem.textContent}`)
+        listItem.addEventListener('click', (e) => setURL(e))
         mainList.appendChild(listItem)
     })
     speechNode.querySelector('.dictionary__definition .word__semantics .word__antonym > p').textContent = 'antonyms:'
@@ -60,6 +64,8 @@ const partOfSpeech = (meaning, speechNode) => {
 
 const wordSources = (data, speechNode) => {
     speechNode.querySelector('.word__redirect').textContent = data.sourceUrls
+    speechNode.querySelector('.word__redirect').setAttribute('href', data.sourceUrls)
+    speechNode.querySelector('.word__redirect').setAttribute('target', '__blank')
 }
 
 const renderMeaning = (data, meaning) => {
@@ -95,11 +101,31 @@ const reset = () => {
 }
 
 const fetchAPI = (word, functions) => {
+    const errorTemplate = document.querySelector('#error')
+    const errorNode = errorTemplate.content.cloneNode(true)
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-        .then(response => response.json())
-        .then(data => functions.forEach(func => {
-            func(data)
-        }))
+        .then(response => {
+            if (response.status === 404) {
+                const main = document.querySelector('main')
+                const meaning = document.querySelectorAll('.dictionary__definition')
+                meaning.forEach(x=> {
+                    x.remove()
+                })
+                console.log(meaning)
+                // wrapper.remove()
+                // main.appendChild(errorNode)
+                throw new Error('Word is not available in our system')
+                return;
+            } 
+            return response.json()
+        })
+        .then(data => {
+            if (functions != null) {
+                functions.forEach(func => {
+                    func(data)
+                })
+            }
+        })
         .catch(error => {
             console.error(error)
         })
@@ -124,7 +150,7 @@ const handleWordSearch = () => {
         dailyWord.remove()
     }
     if (wordInput === '') return;
-   
+
     fetchAPI(wordInput, [renderData, handleSound])
 }
 
@@ -226,7 +252,7 @@ const icon = document.querySelector('.theme__icon')
 
 
 const fetchTheme = (e) => {
-    fetchJSON(e, '../json/theme.json' , [handleSliderToggle])
+    fetchJSON(e, '../json/theme.json', [handleSliderToggle])
 }
 
 const toggleClass = () => {
@@ -262,11 +288,11 @@ const setStorageItem = (name, data) => {
     localStorage.setItem(name, JSON.stringify(data))
 }
 
-const handleStorage = (e,items) => {
+const handleStorage = (e, items) => {
     const checkToggle = localStorage.getItem('isToggled')
     const checkFontValue = localStorage.getItem('fontValue')
 
-    if(checkFontValue != null){
+    if (checkFontValue != null) {
         const dropdown = document.querySelector('.theme__font-dropdown > select')
         dropdown.value = checkFontValue
     }
@@ -278,8 +304,8 @@ const handleStorage = (e,items) => {
 
     items.forEach(item => {
         const storage = localStorage.getItem(item)
-        if(storage === null) return;
-    
+        if (storage === null) return;
+
         Object.entries(JSON.parse(storage)).forEach(property => {
             document.documentElement.style.setProperty(property[0], property[1])
         })
@@ -288,5 +314,24 @@ const handleStorage = (e,items) => {
 }
 
 window.addEventListener('load', (e) => handleStorage(e, ['theme', 'font']))
+
+const setURL = (e) => {
+    fetchAPI(e.target.textContent, [renderData, handleSound])
+}
+
+const loadURL = (e) => {
+    if (!window.location.href.includes('#')) return;
+    let url = window.location.href
+    const index = url.indexOf('#')
+    console.log(window.location.href.slice(index + 1))
+    url = `${url.slice(0, index)}#${window.location.href.slice(index + 1)}`
+    fetchAPI(url.slice(index + 1), [renderData, handleSound])
+
+}
+
+window.addEventListener('load', (e) => loadURL(e))
+
+
+
 
 
