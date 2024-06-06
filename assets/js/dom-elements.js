@@ -1,0 +1,7 @@
+export const wrapper = document.querySelector('.dictionary__wrapper')
+export const sendBtn = document.querySelector('.search__wrapper > button')
+export const speechTemplate = document.querySelector('#speech__wrapper')
+export const speechHeader = document.querySelector('#speech__header')
+export const dailyWord = document.querySelector('#daily__word-template')
+export const logo = document.querySelector('.logo__section')
+export const drop = document.querySelector('.theme__font-dropdown > select')

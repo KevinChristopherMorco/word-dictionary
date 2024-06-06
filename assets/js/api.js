@@ -1,4 +1,4 @@
-import { wrapper } from "./dom-render.js"
+import { wrapper } from "./dom-elements.js"
 
 export const fetchAPI = async (word, functions) => {
     const errorTemplate = document.querySelector('#error')

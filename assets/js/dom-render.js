@@ -1,8 +1,6 @@
-export const wrapper = document.querySelector('.dictionary__wrapper')
-export const sendBtn = document.querySelector('.search__wrapper > button')
-export const speechTemplate = document.querySelector('#speech__wrapper')
-export const speechHeader = document.querySelector('#speech__header')
-export const dailyWord = document.querySelector('#daily__word-template')
+import { fetchAPI } from "./api.js"
+import { wrapper,speechTemplate, speechHeader} from './dom-elements.js';
+import { handleSound } from "./events.js"
 
 export const renderHeader = (data, i) => {
     const header = speechHeader.content.cloneNode(true)
@@ -99,8 +97,6 @@ const reset = () => {
         header.remove()
     })
 }
-
-
 
 
 
