@@ -1,4 +1,3 @@
-import {wrapper} from "./dom-elements.js"
 import { toggleClass } from "./events.js"
 
 export const setStorageItem = (name, data) => {

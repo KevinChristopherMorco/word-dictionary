@@ -5,3 +5,7 @@ export const speechHeader = document.querySelector('#speech__header')
 export const dailyWord = document.querySelector('#daily__word-template')
 export const logo = document.querySelector('.logo__section')
 export const drop = document.querySelector('.theme__font-dropdown > select')
+export const mode = document.querySelector('.theme__mode')
+export const toggle = document.querySelector('.theme__toggle')
+export const icon = document.querySelector('.theme__icon')
+

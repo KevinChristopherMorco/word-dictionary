@@ -1,10 +1,10 @@
-import { wrapper, sendBtn, dailyWord,logo,drop } from "./dom-elements.js"
+import { wrapper, sendBtn, dailyWord, logo, drop, mode, toggle, icon } from "./dom-elements.js"
 import { fetchAPI } from './api.js'
 import { renderData } from "./dom-render.js"
 import { setURL,setTheme, fetchTheme, fetchFont } from "./utils.js"
 import { setStorageItem } from "./localstorage.js"
 
-export const handleWordSearch = async () => {
+const handleWordSearch = async () => {
     let wordInput = document.querySelector('.search__wrapper > input').value
     const dailyWordText = wrapper.querySelector('.daily__word')
     if (dailyWordText) {
@@ -17,9 +17,7 @@ export const handleWordSearch = async () => {
     await fetchAPI(wordInput, [renderData, handleSound])
 }
 
-sendBtn.addEventListener('click', handleWordSearch)
-
-export const fetchDailyWord = () => {
+const fetchDailyWord = () => {
     const wordsOfTheDay = [
         "Joy",
         "Courage",
@@ -40,29 +38,19 @@ export const fetchDailyWord = () => {
     fetchAPI(word, [wordOfTheDay, handleSound])
 }
 
-export const wordOfTheDay = (wordInfo) => {
+const wordOfTheDay = (data) => {
     const dailyWordTemplate = dailyWord.content.cloneNode(true)
     wrapper.appendChild(dailyWordTemplate)
-    const dailyWordText = wrapper.querySelector('.daily__word')
 
+    const dailyWordText = wrapper.querySelector('.daily__word')
     if(window.location.href.includes('#')){
         dailyWordText.remove()
     }
-    renderData(wordInfo)
+    renderData(data)
 }
 
-window.addEventListener('load', fetchDailyWord)
-
-let handleSoundClick
-export const handleSound = (sounds) => {
-    const wordPronounce = wrapper.querySelector('.dictionary__pronounce')
-
-    if (handleSoundClick) {
-        wordPronounce.removeEventListener('click', handleSoundClick)
-    }
-
-    handleSoundClick = (e) => {
-        let rawAudio
+const handleWord = (e,sounds) => {
+    let rawAudio
         sounds.forEach(sound => {
             sound.phonetics.forEach(phonetic => {
                 const phonetics = phonetic.audio
@@ -73,16 +61,15 @@ export const handleSound = (sounds) => {
         })
         const audio = new Audio(rawAudio)
         audio.play()
-    }
-    wordPronounce.addEventListener('click', handleSoundClick)
 }
 
-drop.addEventListener('change', (e) => fetchFont(e))
-
-
-const mode = document.querySelector('.theme__mode')
-const toggle = document.querySelector('.theme__toggle')
-const icon = document.querySelector('.theme__icon')
+export const handleSound = (sounds) => {
+    const wordPronounce = wrapper.querySelector('.dictionary__pronounce')
+    if(!wordPronounce){
+        throw new Error('Sound element does not exist')
+    }
+    wordPronounce.addEventListener('click', (e) => handleWord(e,sounds))
+}
 
 export const toggleClass = () => {
     mode.classList.toggle('theme__mode--active')
@@ -102,25 +89,28 @@ export const handleSliderToggle = (e, themes) => {
     toggleClass()
 }
 
-mode.addEventListener('click', (e) => fetchTheme(e))
-icon.addEventListener('click', (e) => fetchTheme(e))
-
 const loadURL = (e) => {
     if (!window.location.href.includes('#')) return;
     let url = window.location.href
     const index = url.indexOf('#')
     url = `${url.slice(0, index)}#${window.location.href.slice(index + 1)}`
     fetchAPI(url.slice(index + 1), [renderData, handleSound])
-
 }
-
-window.addEventListener('load', (e) => loadURL(e))
 
 const handleLogoClick = () => {
     window.location.href = '/'
 }
 
+sendBtn.addEventListener('click', handleWordSearch)
+mode.addEventListener('click', (e) => fetchTheme(e))
+icon.addEventListener('click', (e) => fetchTheme(e))
 logo.addEventListener('click', handleLogoClick)
+window.addEventListener('load', fetchDailyWord)
+window.addEventListener('load', loadURL)
+drop.addEventListener('change', (e) => fetchFont(e))
+
+
+
 
 
 
